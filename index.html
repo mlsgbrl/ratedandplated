@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rated &amp; Plated</title>
+<meta name="description" content="Rated & Plated keeps food trucks' Google listings, reviews and photos fresh so hungry customers find you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: order-ticket concept — a menu-board headline beside a printed review "ticket", then tight, scannable sections */
+:root{
+  --bg:#F3F4F1;
+  --surface:#FFFFFF;
+  --ink:#16202A;
+  --muted:#5B6670;
+  --line:#D9DCD6;
+  --accent:#D3382A;
+  --accent-ink:#FFFFFF;
+  --star:#E09A12;
+  --tint:#FBE7E4;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161B;--surface:#1A2128;--ink:#ECEFEA;--muted:#9AA5AE;--line:#2C353D;
+    --accent:#F0604D;--accent-ink:#11161B;--star:#F2B53A;--tint:#2E1D1B;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161B;--surface:#1A2128;--ink:#ECEFEA;--muted:#9AA5AE;--line:#2C353D;
+  --accent:#F0604D;--accent-ink:#11161B;--star:#F2B53A;--tint:#2E1D1B;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;margin:0}
+.wrap{max-width:68rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--star);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:900;line-height:.95;text-wrap:balance;margin:0;letter-spacing:.005em}
+h2{font-size:clamp(2.2rem,5vw,3.4rem);text-transform:uppercase}
+h3{font-size:1.6rem;font-weight:700;text-transform:uppercase}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+
+/* header */
+header{border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:18px}
+.logo{font-family:var(--display);font-weight:900;font-size:1.75rem;text-transform:uppercase;text-decoration:none;letter-spacing:.01em}
+.logo span{color:var(--accent)}
+nav ul{display:flex;gap:22px;flex-wrap:wrap;list-style:none;margin:0;padding:0;font-weight:500;font-size:.95rem}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:center;padding-block:clamp(40px,7vw,88px)}
+.hero h1{font-size:clamp(3.4rem,10vw,7.2rem);text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.lede{margin-top:22px;max-width:34rem;font-size:1.2rem;color:var(--muted)}
+.ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:600;font-size:1rem;padding:14px 22px;border-radius:999px;text-decoration:none;border:2px solid var(--ink);cursor:pointer;background:transparent;color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:hover{transform:translateY(-1px)}
+
+/* ticket */
+.ticket{background:var(--surface);border:1px solid var(--line);padding:22px 22px 26px;font-size:.95rem;position:relative;
+  -webkit-mask:radial-gradient(circle 7px at 50% 100%,transparent 6.5px,#000 7px) 0 0/16px 100% repeat-x;
+          mask:radial-gradient(circle 7px at 50% 100%,transparent 6.5px,#000 7px) 0 0/16px 100% repeat-x;
+  rotate:1.2deg}
+.ticket-head{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px dashed var(--line);padding-bottom:12px}
+.review{padding-block:16px;display:grid;gap:6px}
+.who{display:flex;align-items:center;gap:10px;font-weight:600}
+.stars{color:var(--star);letter-spacing:2px;font-size:.95rem}
+.reply{background:var(--tint);padding:12px 14px;border-radius:10px;display:grid;gap:4px}
+.reply b{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.ticket-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.75rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:12px}
+.ok{color:var(--accent)}
+
+/* stat strip */
+.strip{background:var(--ink);color:var(--bg)}
+.strip .wrap{display:flex;gap:18px 40px;align-items:center;flex-wrap:wrap;padding-block:26px}
+.strip .big{font-family:var(--display);font-weight:900;font-size:3.4rem;line-height:1;color:var(--star)}
+.strip p{max-width:40rem;font-size:1.1rem}
+.strip small{display:block;margin-top:4px;font-size:.8rem;opacity:.7}
+.strip a{color:inherit}
+
+/* sections */
+section{padding-block:clamp(48px,7vw,84px)}
+.head{display:grid;gap:12px;margin-bottom:36px;max-width:40rem}
+.head p{color:var(--muted)}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:2px;background:var(--line);border:2px solid var(--line)}
+.item{background:var(--bg);padding:24px;display:grid;gap:10px;align-content:start}
+.item .tag{font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.item p{color:var(--muted);font-size:1rem}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:28px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;gap:10px;border-top:3px solid var(--ink);padding-top:18px}
+.steps li::before{content:"Step " counter(s);font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.steps p{color:var(--muted)}
+
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:20px}
+.why div{display:grid;gap:8px}
+.why p{color:var(--muted)}
+
+/* pricing */
+.price{background:var(--surface);border:1px solid var(--line);padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center}
+.price ul{margin:0;padding-left:1.2rem;display:grid;gap:6px}
+.price .note{color:var(--muted);margin-top:10px}
+
+/* contact */
+.contact{background:var(--accent);color:var(--accent-ink)}
+.contact .wrap{display:grid;gap:18px;padding-block:clamp(48px,7vw,80px)}
+.contact h2{font-size:clamp(2.6rem,7vw,5rem)}
+.contact p{max-width:36rem;font-size:1.15rem}
+.email{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.email code{font-family:var(--mono);font-size:1.05rem;background:color-mix(in srgb,var(--accent-ink) 14%,transparent);padding:10px 14px;border-radius:8px;user-select:all;word-break:break-all}
+.contact .btn{border-color:var(--accent-ink);color:var(--accent-ink)}
+#copy-status{font-size:.9rem;min-height:1.2em}
+
+footer{padding-block:28px;font-size:.9rem;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:760px){
+  .hero,.price{grid-template-columns:minmax(0,1fr)}
+  .ticket{rotate:0deg}
+}
+@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top">Rated <span>&amp;</span> Plated</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#what">What we do</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Google listings &amp; reviews for food trucks</p>
+      <h1>You cook.<br>We get you <em>found.</em></h1>
+      <p class="lede">We keep your Google listing, reviews and photos fresh, so hungry people find your truck, trust it, and come back.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#contact">Get a free listing checkup</a>
+        <a class="btn" href="#how">See how it works</a>
+      </div>
+    </div>
+
+    <figure class="ticket" aria-label="Example of a review answered by Rated &amp; Plated">
+      <div class="ticket-head"><span>Order up · Review #047</span><span>Example</span></div>
+      <div class="review">
+        <div class="who">Keisha W. <span class="stars" aria-label="5 out of 5 stars">★★★★★</span></div>
+        <p>Best lemon pepper wings in town. Found the truck on Google and will be back!</p>
+      </div>
+      <div class="reply">
+        <b>Response from the owner</b>
+        <p>Thank you, Keisha! So glad the lemon pepper hit the spot. See you at the window again soon.</p>
+      </div>
+      <div class="ticket-foot"><span>Replied in 3 hrs</span><span class="ok">Checked by a real person ✓</span></div>
+    </figure>
+  </div>
+
+  <div class="strip">
+    <div class="wrap">
+      <span class="big">80%</span>
+      <p>of customers are more likely to use a business that replies to all of its reviews.
+        <small>BrightLocal Local Consumer Review Survey 2026</small></p>
+    </div>
+  </div>
+
+  <section id="what">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">What we handle</p>
+        <h2>Everything customers see before they walk up</h2>
+        <p>Your Google profile is your truck's front window online. We keep it working while you're at the fryer.</p>
+      </div>
+      <div class="grid4">
+        <div class="item"><span class="tag">Reviews</span><h3>Every review answered</h3><p>Good or bad, each one gets a real reply in your voice within 24 hours.</p></div>
+        <div class="item"><span class="tag">Listing</span><h3>Info that's always right</h3><p>Hours, menu, prices and where you're parked this week, kept up to date.</p></div>
+        <div class="item"><span class="tag">Photos &amp; posts</span><h3>A profile that looks alive</h3><p>Fresh food photos and a weekly Google post so you show up higher on Maps.</p></div>
+        <div class="item"><span class="tag">Report</span><h3>One page a month</h3><p>Your rating, what customers keep saying, and what to fix. Plain English, no jargon.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps, then you just cook</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Free checkup</h3><p>We look at your listing and show you exactly what's costing you customers. No charge, no pressure.</p></li>
+        <li><h3>We fix it</h3><p>You add us as a manager on your Google profile. No passwords shared. We clean everything up and answer your old reviews.</p></li>
+        <li><h3>We keep it fresh</h3><p>Every week we reply, post and update. Every month you get a short report on what changed.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Why Rated &amp; Plated</p>
+        <h2>Built for trucks, run by people</h2>
+      </div>
+      <div class="why">
+        <div><h3>Food trucks only</h3><p>Trucks move, so customers keep asking where you are today. We keep your location and schedule current everywhere.</p></div>
+        <div><h3>A real person on every reply</h3><p>AI helps us draft. A customer service pro reads and approves every word before it goes up.</p></div>
+        <div><h3>No contracts</h3><p>Month to month. If we're not bringing you value, you can cancel anytime.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="price">
+        <div>
+          <p class="eyebrow">Pricing</p>
+          <h2>One flat monthly fee</h2>
+          <p class="note">We'll quote you after your free checkup, based on how many reviews and locations you have.</p>
+        </div>
+        <ul>
+          <li>Full listing cleanup to start</li>
+          <li>Replies to every review</li>
+          <li>Weekly Google posts and location updates</li>
+          <li>Monthly report</li>
+          <li>Month to month, cancel anytime</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="contact" id="contact">
+  <div class="wrap">
+    <h2>Get your free checkup</h2>
+    <p>Send us your truck's name and city. We'll reply with what's working on your listing, what isn't, and how we'd fix it.</p>
+    <div class="email">
+      <code id="email">ratedandplated@gmail.com</code>
+      <a class="btn" href="mailto:ratedandplated@gmail.com?subject=Free%20listing%20checkup">Email us</a>
+      <button class="btn" id="copy" type="button">Copy email</button>
+    </div>
+    <p id="copy-status" aria-live="polite"></p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Rated &amp; Plated</span>
+    <span>Google listings &amp; reviews for food trucks · First client: Side Piece Chicken, Albany, GA</span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var text = document.getElementById('email').textContent;
+  var status = document.getElementById('copy-status');
+  function fallback() {
+    var r = document.createRange();
+    r.selectNodeContents(document.getElementById('email'));
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    status.textContent = 'Email selected. Press Ctrl+C or Cmd+C to copy.';
+  }
+  try {
+    navigator.clipboard.writeText(text).then(function () { status.textContent = 'Email copied.'; }, fallback);
+  } catch (e) { fallback(); }
+});
+</script>
+</body>
+</html>
